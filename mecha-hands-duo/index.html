@@ -1,0 +1,30 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<title>Mecha Hands Duo</title><style>
+html,body{margin:0;height:100%;background:#04060b;overflow:hidden;font-family:system-ui,Roboto,sans-serif;color:#e8eef5;-webkit-user-select:none;user-select:none;touch-action:none}
+#c{position:fixed;inset:0;width:100%;height:100%;display:block}
+#hud{position:fixed;left:0;right:0;top:calc(env(safe-area-inset-top) + 8px);text-align:center;font:600 11px/1.3 monospace;color:#9fb3c8;opacity:.75;pointer-events:none}
+#msg{position:fixed;left:0;right:0;top:40%;text-align:center;font:800 20px system-ui;letter-spacing:2px;color:#fff;text-shadow:0 0 12px #8a7cff,0 2px 8px #000;pointer-events:none}
+.tag{position:fixed;left:0;top:0;pointer-events:none;display:flex;align-items:center;gap:6px;font:800 12px monospace;letter-spacing:2px;white-space:nowrap;transition:opacity .3s}
+.tag b{display:inline-block;width:20px;height:20px;line-height:20px;text-align:center;border-radius:5px;font-size:12px;color:#04060b}
+.tag.L{color:#5fe3ff;text-shadow:0 0 8px #0af}.tag.L b{background:#3fdcff;box-shadow:0 0 10px #0cf}
+.tag.R{color:#ffb35a;text-shadow:0 0 8px #f80}.tag.R b{background:#ffa640;box-shadow:0 0 10px #f90}
+.tag.dim{opacity:.45}
+#bar{position:fixed;left:0;right:0;bottom:calc(env(safe-area-inset-bottom) + 12px);display:flex;justify-content:center;gap:8px;flex-wrap:wrap;padding:0 8px}
+button{background:linear-gradient(#20252e,#11141a);color:#e8eef5;border:1px solid #3a4250;border-radius:12px;padding:9px 12px;font:700 13px system-ui;box-shadow:0 2px 8px #0008,inset 0 1px 0 #fff2}
+button.on{border-color:#8a7cff;color:#c8c0ff;box-shadow:0 0 10px #8a7cff55,inset 0 1px 0 #fff3}
+#rec.on{background:#7a1020;color:#fff}
+#pip{position:fixed;right:10px;bottom:calc(env(safe-area-inset-bottom) + 70px);width:28vw;max-width:220px;border:1px solid #8a7cff88;border-radius:10px;overflow:hidden;display:none;background:#000}
+#pip video,#pip canvas{width:100%;display:block}#pip canvas{position:absolute;inset:0;height:100%}
+#start{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(circle at 25% 40%,#06263a 0,transparent 55%),radial-gradient(circle at 75% 60%,#3a1c06 0,transparent 55%),#04060b;z-index:5;text-align:center;padding:24px}
+#start h1{font:900 34px system-ui;letter-spacing:5px;margin:0 0 6px;background:linear-gradient(90deg,#3fdcff,#c8c0ff,#ffa640);-webkit-background-clip:text;background-clip:text;color:transparent}
+#start p{color:#a9b4c2;max-width:340px;font-size:14px}#start button{font-size:18px;padding:14px 28px;margin-top:12px}
+#set{position:fixed;left:10px;right:10px;bottom:calc(env(safe-area-inset-bottom) + 64px);background:#0c0f15dd;border:1px solid #333b48;border-radius:14px;padding:10px;display:none;flex-wrap:wrap;gap:8px;justify-content:center}
+</style>  <script type="module" crossorigin src="./assets/index-CdAWPmkT.js"></script>
+</head><body>
+<canvas id="c"></canvas>
+<div id="hud"></div><div id="msg"></div>
+<div id="pip"><video id="vid" playsinline muted></video><canvas id="pipc"></canvas></div>
+<div id="set"><button id="bMir">Mirror</button><button id="bSwap">Swap sides</button><button id="bQ">Quality: High</button><button id="bSnd">Sound</button></div>
+<div id="bar"><button id="bBg">BG: Lab</button><button id="bPip">PiP</button><button id="bSnap">📷</button><button id="rec">⏺</button><button id="bSet">⚙</button></div>
+<div id="start"><h1>MECHA HANDS DUO</h1><p>Both your hands become armoured mech gauntlets — left glows cyan, right glows amber, like a mirror. Front camera; all tracking runs on this phone, nothing is uploaded.</p>
+<p style="font-size:12px;color:#7f8a99">Open · Fist · Pinch · Point · Thumbs up · Finger-gun (drop thumb = fire)<br>Pinch with both hands = spark arc · Clap = shockwave</p><button id="bGo">START</button></div></body></html>

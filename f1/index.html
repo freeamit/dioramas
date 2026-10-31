@@ -1,0 +1,49 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>F1 Circuit Diorama</title><style>
+html,body{margin:0;height:100%;overflow:hidden;background:#07090f;touch-action:none;font-family:system-ui,sans-serif;user-select:none;-webkit-user-select:none}canvas{display:block}
+#ui{position:fixed;top:10px;right:10px;display:flex;gap:8px;z-index:5}#ui button{background:rgba(12,14,24,.72);color:#fff;border:1px solid #e10600;border-radius:18px;padding:5px 9px;font-size:11px;opacity:.85}
+#hud{position:fixed;top:8px;left:8px;z-index:4;color:#fff;font-size:10px;opacity:.85;max-height:40vh;overflow:hidden;background:rgba(10,12,20,.62);border-left:3px solid #e10600;border-radius:8px;padding:5px 7px;min-width:120px}
+#hud .lap{font-weight:800;font-size:11px;letter-spacing:1px;margin-bottom:4px}#hud .row{display:flex;gap:6px;align-items:center;line-height:14px;cursor:pointer}#hud .row b{width:18px;text-align:right}#hud .sw{width:10px;height:10px;border-radius:2px}#hud .row span.n{flex:1}#hud .row span.g{opacity:.75;font-variant-numeric:tabular-nums}#hud .row.f{background:rgba(225,6,0,.35);border-radius:4px}
+#tod{position:fixed;bottom:52px;left:50%;transform:translateX(-50%);color:#fff;font-size:12px;background:rgba(10,12,20,.55);border-radius:12px;padding:4px 10px;z-index:4}
+#lights{position:fixed;top:14%;left:50%;transform:translateX(-50%);display:none;gap:10px;z-index:4;background:#111;padding:10px 14px;border-radius:10px}#lights i{width:26px;height:26px;border-radius:50%;background:#300;display:inline-block}#lights i.on{background:#ff1a10;box-shadow:0 0 14px #f00}
+.panel{position:fixed;inset:auto 10px 10px 10px;max-width:440px;margin:auto;background:rgba(10,12,22,.94);color:#eef;border:1px solid #e10600;border-radius:14px;padding:14px;z-index:6;display:none;font-size:14px;max-height:80vh;overflow:auto}
+.panel h3{margin:0 0 8px;color:#ff5a4f}.panel label{display:flex;justify-content:space-between;align-items:center;margin:8px 0;gap:10px}.panel select,.panel input{flex:1;max-width:60%}.panel .row{display:flex;gap:8px;margin-top:10px}.panel button{flex:1;background:#e10600;color:#fff;border:0;border-radius:10px;padding:8px}.panel p{margin:6px 0;line-height:1.35}.panel small{opacity:.8}
+#pad{position:fixed;inset:0;pointer-events:none;z-index:3;display:none}
+#stick{position:absolute;left:5%;bottom:8%;width:130px;height:130px;border-radius:50%;background:rgba(255,255,255,.08);border:2px solid rgba(255,255,255,.35);pointer-events:auto}#knob{position:absolute;left:40px;top:40px;width:50px;height:50px;border-radius:50%;background:rgba(220,220,230,.55)}
+.pb{position:absolute;width:58px;height:58px;border-radius:50%;pointer-events:auto;color:#fff;font:800 20px system-ui;display:flex;align-items:center;justify-content:center;border:2px solid rgba(255,255,255,.4)}
+#bA{right:12%;bottom:8%;background:rgba(16,124,16,.75)}#bB{right:5%;bottom:18%;background:rgba(200,30,30,.75)}#bX{right:19%;bottom:18%;background:rgba(20,90,200,.75)}#bY{right:12%;bottom:28%;background:rgba(220,170,0,.8)}
+.tr{position:absolute;bottom:40%;width:74px;height:44px;border-radius:12px;pointer-events:auto;color:#fff;font:700 15px system-ui;display:flex;align-items:center;justify-content:center;background:rgba(40,40,50,.7);border:2px solid rgba(255,255,255,.35)}#bLT{left:5%}#bRT{right:5%}
+#views{position:fixed;left:50%;transform:translateX(-50%);bottom:10px;z-index:5;display:flex;gap:6px;max-width:96vw;overflow-x:auto;padding:5px 7px;background:rgba(10,14,16,.72);border:1px solid rgba(46,230,200,.35);border-radius:16px;scrollbar-width:none}#views::-webkit-scrollbar{display:none}#views button{flex:none;background:transparent;color:#e8f4ef;border:1px solid rgba(255,255,255,.18);border-radius:12px;padding:6px 10px;font:600 12px system-ui,sans-serif;white-space:nowrap}#views button.on{background:#e10600;border-color:#e10600;color:#fff}
+#tags{position:fixed;inset:0;pointer-events:none;z-index:3}#tags .tag{position:absolute;left:0;top:0;display:flex;align-items:center;gap:3px;padding:1px 6px 1px 3px;border-radius:10px;background:rgba(8,14,16,.78);border:1px solid rgba(0,200,170,.6);color:#fff;font:700 11px system-ui,sans-serif;white-space:nowrap}#tags .tag i{width:10px;height:10px;border-radius:50%;border:1.5px solid #fff;display:block}#tags .tag.me{border-color:#ff3b30;background:rgba(40,8,8,.85)}body.picking canvas{cursor:crosshair}body.picking #views #bPick{background:#00b49a}
+body.padon #views{bottom:auto;top:46px}body.padon #tod{bottom:10px}
+</style>  <script type="module" crossorigin src="./assets/index-RC4GBeQ_.js"></script>
+</head><body>
+<div id="hud"></div><div id="lights"><i></i><i></i><i></i><i></i><i></i></div><div id="tod"></div>
+<div id="views"></div><div id="ui"><button id="bCam">Camera</button><button id="bTime">Time</button><button id="bWx">Clear</button><button id="bSet">Settings</button><button id="bAbout">About</button></div>
+<div id="pad"><div id="stick"><div id="knob"></div></div><div class="pb" id="bA">A</div><div class="pb" id="bB">B</div><div class="pb" id="bX">X</div><div class="pb" id="bY">Y</div><div class="tr" id="bLT">LT brake</div><div class="tr" id="bRT">RT gas</div></div>
+<div class="panel" id="pSet"><h3>Settings</h3>
+<label>Track<select id="sTrack"><option value="shanghai">Shanghai International</option><option value="kleine">Kleine Nordschleife 1975</option><option value="bugatti">Bugatti Circuit, Le Mans</option><option value="oval">Speedway Oval</option><option value="garda">South Garda Karting</option><option value="catalunya">Mini Catalunya (indoor)</option><option value="simple">Club Circuit</option></select></label>
+<label>Cars on track: <b id="lCars">10</b><input id="sCars" type="range" min="1" max="24" step="1"></label>
+<small style="opacity:.7">Max 8 cars on Low, 12 on Medium, 24 on High; short tracks cap lower.</small>
+<label>Weather<select id="sWeather"><option value="clear">Clear</option><option value="cloudy">Dark cloudy</option><option value="rain">Dark cloudy + rain</option></select></label>
+<label>Time of day<select id="sTod"><option value="auto">Auto (cycle)</option><option value="day">Day</option><option value="sunset">Sunset</option><option value="night">Night</option><option value="dawn">Dawn</option></select></label>
+<label>Auto cycle length<select id="sCycle"><option value="120">2 min</option><option value="240">4 min</option><option value="480">8 min</option></select></label>
+<label>Camera<select id="sCam"><option value="overview">Diorama overview</option><option value="chase">Chase</option><option value="trackside">Trackside</option><option value="onboard">Onboard</option></select></label>
+<label>Auto-rotate diorama<input id="sRot" type="checkbox"></label>
+<label>Race speed<input id="sSpeed" type="range" min="0.25" max="2" step="0.05"></label>
+<label>Player car (on-screen pad / gamepad)<input id="sPlayer" type="checkbox"></label>
+<label>Tyre smoke<input id="sSmoke" type="checkbox"></label>
+<label>Quality<select id="sQ"><option value="low">Low</option><option value="med">Medium</option><option value="high">High</option></select></label>
+<div class="row"><button id="bRestart">Restart race</button><button id="bClose">Close</button></div></div>
+<div class="panel" id="pAbout"><h3>F1 Circuit Diorama v1.4</h3>
+<p>A three.js diorama of seven circuits (Shanghai, Kleine Nordschleife, Bugatti Le Mans, an oval, South Garda, Mini Catalunya and a club track) with 1–24 F1 cars (one hero car by default), an automatic day/night cycle, floodlights, start gantry, live leaderboard and an optional player car.</p>
+<p>Views bar: Overview, Top, Pit lane, Chase, Onboard, TV drift, Tour and corner presets; cameras glide with exponential easing (camera style inspired by whistlevale.com). Drag to orbit, pinch/wheel to zoom, two-finger or right-drag to pan, double-tap to focus the car. Tap a driver in the leaderboard to follow that car. Gamepad: left stick steer, RT gas, LT/B brake, A next view, LB/RB previous/next view, D-pad Overview/Tour/Chase/Onboard, right stick orbit, Y time of day, X follow next car.</p>
+<p><b>3D model credits</b> (decimated and recoloured for phones; all from Sketchfab):<br>
+<small>"Shanghai International Circuit 2018 layout", "2004 Ferrari F2004", "2021 Redbull RB16B", "2026 Mercedes W17", "2026 Cadillac MAC-26" by Dave Love (sketchfab.com/Tyler_Dave), CC-BY-4.0.<br>
+"Aston Martin F1 AMR23 2023" by Redgrund (sketchfab.com/redgrund), CC-BY-4.0.<br>
+"1988 Mclaren MP4/4", "Kleine Nordschleife 1975 layout", "Bugatti Circuit 2017 layout" by Dave Love (sketchfab.com/Tyler_Dave), CC-BY-4.0.<br>
+"F1 Race" (oval track + blue car) by benjaminjrc (sketchfab.com/benjaminjrc), CC-BY-4.0.<br>
+"Track" and "Race track/Karting Track based on South Garda" by Mauro3D (sketchfab.com/maurogsw), CC-BY-4.0.<br>
+"Mini Catalunya Indoor Karting Track" by Dylan Jade (sketchfab.com/DylanJade3D), CC-BY-4.0 (roof, lights and karts removed).<br>
+Licence: creativecommons.org/licenses/by/4.0/. Recoloured liveries are modifications of these models.</small></p>
+<p>Fan-made diorama; not an official Formula 1 product. Built with three.js (MIT).</p><div class="row"><button id="bAboutClose">Close</button></div></div></body></html>
